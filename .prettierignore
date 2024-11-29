@@ -1,0 +1,2 @@
+# Ignore shadcn-generated stuff
+src/shadcn/**/*.ts*
