@@ -4,8 +4,8 @@
 .vscode/
 .idea/
 
-# local DB
-# TODO
+# local DB files
+dev.db*
 
 # dependencies
 /node_modules
