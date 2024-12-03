@@ -12,6 +12,7 @@
     "db:push": "npx drizzle-kit push"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@libsql/client": "^0.14.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",

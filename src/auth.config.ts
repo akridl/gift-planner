@@ -5,7 +5,7 @@ export const authConfig = {
 		signIn: '/login'
 	},
 	callbacks: {
-		authorized({ auth, request: { nextUrl } }) {
+		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
 			const isOnPublicPage = ['/login', '/register'].includes(nextUrl.pathname);
 
@@ -22,7 +22,7 @@ export const authConfig = {
 
 			return true;
 		},
-		async redirect({ url, baseUrl }) {
+		redirect: async ({ url, baseUrl }) => {
 			if (url.startsWith(baseUrl)) {
 				return url;
 			}

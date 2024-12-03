@@ -1,16 +1,15 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
-import { db } from '@/db';
-import { users } from '@/db/schema/users';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { eq } from 'drizzle-orm';
 
-export const login = async (
-	formData: FormData
-) => {
+import { users } from '@/db/schema/users';
+import { db } from '@/db';
+import { signIn, signOut } from '@/auth';
+
+export const login = async (formData: FormData) => {
 	try {
 		const result = await signIn('credentials', {
 			redirect: false,

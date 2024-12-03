@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
-import z from 'zod';
-
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
+
+import { authConfig } from './auth.config';
 import { db } from './db';
 import { users } from './db/schema/users';
 
@@ -28,14 +28,14 @@ const getUser = async (email: string): Promise<User | null> => {
 		password: user.password,
 		name: user.name,
 		username: user.username
-	}
+	};
 };
 
 export const { auth, signIn, signOut } = NextAuth({
 	...authConfig,
 	providers: [
 		Credentials({
-			async authorize(credentials) {
+			authorize: async credentials => {
 				const parsedCredentials = z
 					.object({ email: z.string().email(), password: z.string().min(6) })
 					.safeParse(credentials);
@@ -49,7 +49,7 @@ export const { auth, signIn, signOut } = NextAuth({
 					const passwordsMatch = await bcrypt.compare(password, user.password);
 					if (passwordsMatch) return user;
 				}
-                console.log('Invalid credentials');
+				console.log('Invalid credentials');
 				return null;
 			}
 		})

@@ -3,6 +3,7 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 
 import { gifts } from '@/db/schema/gifts';
+
 import { users } from './schema/users';
 
 const client = createClient({
@@ -14,7 +15,7 @@ export const db = drizzle(client, {
 	schema: {
 		// tables
 		gifts,
-		users,
+		users
 
 		// relations
 		// TODO

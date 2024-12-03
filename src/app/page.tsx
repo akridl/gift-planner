@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
-import { auth, signOut } from '@/auth';
-import { SubmitButton } from '@/components/submit-button';
-import { logout } from '@/server-actions/authenticate';
-import { Sign } from 'crypto';
+import { redirect } from 'next/navigation';
+
+import { auth } from '@/auth';
 import SignOutButton from '@/components/signout-button';
 
 const Home = async () => {
