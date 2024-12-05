@@ -4,6 +4,8 @@ import { createClient } from '@libsql/client';
 
 import { gifts } from '@/db/schema/gifts';
 
+import { users } from './schema/users';
+
 const client = createClient({
 	url: process.env.DATABASE_URL!,
 	authToken: process.env.AUTH_TOKEN
@@ -12,7 +14,8 @@ const client = createClient({
 export const db = drizzle(client, {
 	schema: {
 		// tables
-		gifts
+		gifts,
+		users
 
 		// relations
 		// TODO
