@@ -30,4 +30,4 @@ export const wishesRelations = relations(wishes, ({ one }) => ({
 	})
 }));
 
-export type UserGift = InferSelectModel<typeof wishes>;
+export type Wish = InferSelectModel<typeof wishes>;
