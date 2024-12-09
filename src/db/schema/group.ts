@@ -7,6 +7,7 @@ import {
 
 import { users } from './users';
 import { memberships } from './membership';
+import { wishes } from './wishes';
 
 export const groups = sqliteTable('groups', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
@@ -22,7 +23,8 @@ export const groupsRelations = relations(groups, ({ one, many }) => ({
 		fields: [groups.ownerId],
 		references: [users.id]
 	}),
-	members: many(memberships)
+	members: many(memberships),
+	wishes: many(wishes)
 }));
 
 export type Group = InferSelectModel<typeof groups>;

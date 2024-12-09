@@ -9,10 +9,10 @@ import {
 import { gifts } from './gifts';
 import { users } from './users';
 
-export const userGifts = sqliteTable(
-	'user_gifts',
+export const buyings = sqliteTable(
+	'buyings',
 	{
-		gifterId: integer('gifter_id')
+		buyerId: integer('buyer_id')
 			.references(() => users.id)
 			.notNull(),
 		giftId: integer('gift_id')
@@ -21,19 +21,19 @@ export const userGifts = sqliteTable(
 		userNote: text('user_note')
 	},
 	t => ({
-		pk: primaryKey({ columns: [t.gifterId, t.giftId] })
+		pk: primaryKey({ columns: [t.buyerId, t.giftId] })
 	})
 );
 
-export const userGiftsRelations = relations(userGifts, ({ one }) => ({
-	gifter: one(users, {
-		fields: [userGifts.gifterId],
+export const buyingsRelations = relations(buyings, ({ one }) => ({
+	buyer: one(users, {
+		fields: [buyings.buyerId],
 		references: [users.id]
 	}),
 	gift: one(gifts, {
-		fields: [userGifts.giftId],
+		fields: [buyings.giftId],
 		references: [gifts.id]
 	})
 }));
 
-export type UserGift = InferSelectModel<typeof userGifts>;
+export type UserGift = InferSelectModel<typeof buyings>;

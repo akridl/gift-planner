@@ -7,7 +7,7 @@ import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
 
 import { gifts } from './gifts';
 import { groups } from './group';
-import { userGifts } from './user_gift';
+import { buyings } from './buyings';
 import { memberships } from './membership';
 
 export const users = sqliteTable('users', {
@@ -21,7 +21,7 @@ export const users = sqliteTable('users', {
 export const usersRelations = relations(users, ({ many }) => ({
 	gifts: many(gifts),
 	groups: many(groups),
-	userGifts: many(userGifts),
+	userGifts: many(buyings),
 	groupMemberships: many(memberships)
 }));
 
