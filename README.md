@@ -1,4 +1,6 @@
 # Gift Planner
+Simple database schema:
+![image](https://github.com/user-attachments/assets/519ac0f4-1072-46f7-8719-14b979a53d99)
 
 ## Team members
 | Učo                                              | Name             |
@@ -11,11 +13,13 @@
 **TODO**: Paste the assignment once approved
 
 ## Local development
-For a developer, it's enough to create `.env` file with connection details to the database.
-You can achieve this e.g. by:
-```shell
-cp .env.example .env
-```
+1. Prepare connection variablescreating `.env` file with connection details to the database. For local development you can achieve this e.g. by: `cp .env.example .env`
+2. Start DB via: `turso dev --db-file dev.db`
+3. Update database schema via: `npm run db:push`
+4. Start drizzle kit via: `npx drizzle-kit studio`
+    - The DB should be now reachable and visible on https://local.drizzle.studio
+5. Start application via: `npm run dev`
+    - The application should be now reachable on http://localhost:3000
 
 ## Pipeline
 The CI pipeline lints the source code and verifies whether it's buildable.
