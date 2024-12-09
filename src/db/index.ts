@@ -7,7 +7,7 @@ import { gifts, giftsRelations } from '@/db/schema/gifts';
 import { users, usersRelations } from './schema/users';
 import { groups, groupsRelations } from './schema/group';
 import { memberships, membershipsRelations } from './schema/membership';
-import { userGifts, userGiftsRelations } from './schema/user_gift';
+import { buyings, buyingsRelations } from './schema/buyings';
 
 const client = createClient({
 	url: process.env.DATABASE_URL!,
@@ -27,8 +27,8 @@ export const db = drizzle(client, {
 		groupsRelations,
 		memberships,
 		membershipsRelations,
-		userGifts,
-		userGiftsRelations
+		buyings,
+		buyingsRelations
 	},
 	casing: 'snake_case'
 });

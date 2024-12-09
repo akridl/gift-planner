@@ -7,7 +7,8 @@ import {
 } from 'drizzle-orm';
 
 import { users } from './users';
-import { userGifts } from './user_gift';
+import { buyings } from './buyings';
+import { wishes } from './wishes';
 
 export const gifts = sqliteTable(
 	'gifts',
@@ -18,7 +19,7 @@ export const gifts = sqliteTable(
 		url: text('url'),
 		price: integer('price'),
 		rating: integer('rating').notNull(),
-		createdBy: integer('created_by')
+		ownerId: integer('owner_id')
 			.references(() => users.id)
 			.notNull()
 	},
@@ -30,12 +31,13 @@ export const gifts = sqliteTable(
 	})
 );
 
-export const giftsRelations = relations(gifts, ({ one }) => ({
-	createdBy: one(users, {
-		fields: [gifts.createdBy],
+export const giftsRelations = relations(gifts, ({ one, many }) => ({
+	owner: one(users, {
+		fields: [gifts.ownerId],
 		references: [users.id]
 	}),
-	userGift: one(userGifts)
+	userGift: one(buyings),
+	wishGroups: many(wishes)
 }));
 
 export type Gift = InferSelectModel<typeof gifts>;
