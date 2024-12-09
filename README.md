@@ -1,6 +1,6 @@
 # Gift Planner
 Simple database schema:
-![image](https://github.com/user-attachments/assets/519ac0f4-1072-46f7-8719-14b979a53d99)
+![image](https://github.com/user-attachments/assets/a467c4e9-6554-4e0a-8133-247fb8862851)
 
 ## Team members
 | Učo                                              | Name             |
