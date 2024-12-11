@@ -11,7 +11,7 @@ import { buyings, buyingsRelations } from './schema/buyings';
 import { wishes, wishesRelations } from './schema/wishes';
 
 const client = createClient({
-	url: process.env.DATABASE_URL!,
+	url: 'libsql://gift-planner-devel-db-akridl.turso.io',
 	authToken: process.env.AUTH_TOKEN
 });
 

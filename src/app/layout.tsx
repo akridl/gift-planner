@@ -6,6 +6,8 @@ import React from 'react';
 
 import { Providers } from '@/components/providers';
 
+import NavLinks from './navigation-links';
+
 const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
@@ -21,9 +23,12 @@ const RootLayout = ({
 		<body
 			className={`flex min-h-screen flex-col bg-gray-200 ${poppins.className}`}
 		>
-			<main className="container py-10">
-				<Providers>{children}</Providers>
-			</main>
+			<Providers>
+				<header className="flex w-full bg-gray-300">
+					<NavLinks />
+				</header>
+				<main className="container py-10">{children}</main>
+			</Providers>
 		</body>
 	</html>
 );
