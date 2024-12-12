@@ -12,9 +12,9 @@ const NavLinks = () => {
 		<nav className="container flex justify-between gap-5 py-5">
 			<div className="flex gap-5">
 				<Link
-					href="/"
+					href="/gifts"
 					className={`rounded-md px-4 py-2 ${
-						pathname === '/' ? 'bg-white' : 'text-gray-700'
+						pathname === '/gifts' ? 'bg-white' : 'text-gray-700'
 					}`}
 				>
 					Wishes

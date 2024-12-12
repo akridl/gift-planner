@@ -1,8 +1,9 @@
 'use client';
 
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { Star } from 'lucide-react';
 
 import { type CreateGift, type Gift } from '@/db/schema/gifts';
 import { SubmitButton } from '@/components/submit-button';
@@ -28,7 +29,7 @@ export const GiftForm = ({ gift }: GiftFormProps) => {
 		}
 	});
 
-	const { handleSubmit, reset } = methods;
+	const { handleSubmit, reset, control } = methods;
 
 	const router = useRouter();
 
@@ -67,15 +68,29 @@ export const GiftForm = ({ gift }: GiftFormProps) => {
 					required
 					className="mb-3"
 				/>
-				<FormTextField
-					name="rating"
-					label="Rating"
-					type="number"
-					min={1}
-					max={5}
-					required
-					className="mb-3"
-				/>
+				<div className="mb-3">
+					<label htmlFor="rating" className="mb-1 block font-medium">
+						Rating
+					</label>
+					<Controller
+						name="rating"
+						control={control}
+						render={({ field }) => (
+							<div className="flex items-center">
+								{[...Array(5)].map((_, index) => (
+									<Star
+										key={index}
+										className={`h-6 w-6 cursor-pointer ${
+											index < field.value ? 'text-yellow-400' : 'text-gray-300'
+										}`}
+										fill={index < field.value ? 'currentColor' : 'none'}
+										onClick={() => field.onChange(index + 1)}
+									/>
+								))}
+							</div>
+						)}
+					/>
+				</div>
 				<FormTextField name="url" label="URL" className="mb-3" />
 				<SubmitButton
 					type="submit"
