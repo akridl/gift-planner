@@ -12,43 +12,40 @@ import {
 } from '@/shadcn/ui/dialog';
 import { Button } from '@/shadcn/ui/button';
 
-type DeleteDialogProps = {
+type CancelDialogProps = {
 	title: string;
 	description: string;
-	onConfirm: () => Promise<void>;
+	onCancel: () => void;
 	triggerText: string;
 	confirmText?: string;
 	cancelText?: string;
 	isLoading?: boolean;
 	triggerClassName?: string;
+	confirmClassName?: string;
 };
 
-export const DeleteDialog = ({
+export const CancelDialog = ({
 	title,
 	description,
-	onConfirm,
+	onCancel,
 	triggerText,
-	confirmText = 'Delete',
-	cancelText = 'Cancel',
+	confirmText = 'Yes, Cancel',
+	cancelText = 'No, Keep Editing',
 	isLoading = false,
-	triggerClassName = ''
-}: DeleteDialogProps) => {
+	triggerClassName = '',
+	confirmClassName = ''
+}: CancelDialogProps) => {
 	const [open, setOpen] = useState(false);
 
-	const handleConfirm = async () => {
-		try {
-			await onConfirm();
-		} finally {
-			setOpen(false);
-		}
+	const handleConfirm = () => {
+		onCancel();
+		setOpen(false);
 	};
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant="destructive" className={triggerClassName}>
-					{triggerText}
-				</Button>
+				<Button className={triggerClassName}>{triggerText}</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -60,6 +57,7 @@ export const DeleteDialog = ({
 						{cancelText}
 					</Button>
 					<Button
+						className={confirmClassName}
 						variant="destructive"
 						onClick={handleConfirm}
 						disabled={isLoading}

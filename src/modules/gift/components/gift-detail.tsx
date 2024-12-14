@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { DeleteDialog } from '@/components/delete-dialog';
 import { type Gift } from '@/db/schema/gifts';
 import { useToast } from '@/shadcn/hooks/use-toast';
+import { Button } from '@/shadcn/ui/button';
 
 import { deleteGiftById } from '../server-actions/delete-by-id';
 
@@ -39,52 +40,95 @@ export const GiftDetail = ({ gift }: GiftDetailProps) => {
 	};
 
 	return (
-		<div>
-			<h1 className="text-lg font-semibold">{gift.name}</h1>
-			<div>
-				<div className="mb-3">
-					<label htmlFor="name">Name</label>
-					<p id="name">{gift.name}</p>
+		<div className="mx-auto mt-8 w-full rounded-xl bg-white p-6 shadow-md">
+			<h2 className="mb-6 text-2xl font-bold text-gray-800">{gift.name}</h2>
+			<div className="space-y-4">
+				<div>
+					<label
+						htmlFor="name"
+						className="block text-sm font-medium text-gray-600"
+					>
+						Name
+					</label>
+					<p id="name" className="text-lg text-gray-800">
+						{gift.name}
+					</p>
 				</div>
-				<div className="mb-3">
-					<label htmlFor="description">Description</label>
-					<p id="description">{gift.description}</p>
+				<div>
+					<label
+						htmlFor="description"
+						className="block text-sm font-medium text-gray-600"
+					>
+						Description
+					</label>
+					<p id="description" className="text-gray-700">
+						{gift.description}
+					</p>
 				</div>
-				<div className="mb-3">
-					<label htmlFor="price">Price</label>
-					<p id="price">{gift.price}</p>
+				<div>
+					<label
+						htmlFor="price"
+						className="block text-sm font-medium text-gray-600"
+					>
+						Price
+					</label>
+					<p id="price" className="text-lg font-semibold text-gray-800">
+						{gift.price}€
+					</p>
 				</div>
-				<div className="mb-3">
-					<label htmlFor="rating">Rating</label>
-					<p id="rating">
+				<div>
+					<label
+						htmlFor="rating"
+						className="block text-sm font-medium text-gray-600"
+					>
+						Rating
+					</label>
+					<div id="rating" className="flex items-center">
 						{[...Array(5)].map((_, index) => (
 							<Star
 								key={index}
-								className={`h-5 w-5 ${
-									index < gift.rating ? 'text-yellow-400' : 'text-gray-300'
+								className={`h-6 w-6 ${
+									index < gift.rating ? 'text-yellow-500' : 'text-gray-300'
 								}`}
 								fill={index < gift.rating ? 'currentColor' : 'none'}
 							/>
 						))}
-					</p>
+					</div>
 				</div>
-				<div className="mb-3">
-					<label htmlFor="url">URL</label>
-					<p id="url">{gift.url}</p>
+				<div>
+					<label
+						htmlFor="url"
+						className="block text-sm font-medium text-gray-600"
+					>
+						URL
+					</label>
+					<a
+						id="url"
+						href={gift.url ?? '#'}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-blue-500 hover:underline"
+					>
+						{gift.url}
+					</a>
 				</div>
 			</div>
-			<button
-				onClick={handleEdit}
-				className="ml-4 text-blue-500 hover:text-blue-700 focus:outline-none"
-			>
-				Edit
-			</button>
-			<DeleteDialog
-				title="Delete Gift"
-				description="Are you sure you want to delete this gift? This action cannot be undone."
-				onConfirm={handleDelete}
-				triggerText="Delete"
-			/>
+			<div className="mt-6 flex items-center justify-center gap-2">
+				<Button
+					variant="secondary"
+					className="w-full rounded-md bg-neutral-700 px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto"
+					onClick={handleEdit}
+				>
+					Edit
+				</Button>
+				<DeleteDialog
+					title="Delete Gift"
+					description="Are you sure you want to delete this gift? This action cannot be undone."
+					onConfirm={handleDelete}
+					triggerText="Delete"
+					triggerClassName="w-full md:w-auto"
+				/>
+			</div>
 		</div>
 	);
 };

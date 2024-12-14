@@ -1,8 +1,12 @@
-import { GiftForm } from '@/modules/gift/components/gift-form';
+import { BackButton } from '@/components/back-button';
+import { GiftForm } from '@/modules/gift/components/gift-form/gift-form';
 
 const Page = async () => (
 	<div className="container mx-auto p-4">
-		<h1 className="mb-4 text-2xl font-bold">Create new wish</h1>
+		<div className="flex items-center">
+			<BackButton />
+			<h1 className="text-3xl font-bold">Create new wish</h1>
+		</div>
 		<GiftForm />
 	</div>
 );

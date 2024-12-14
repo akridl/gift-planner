@@ -21,7 +21,7 @@ export const GiftCard = ({ gift }: { gift: Gift }) => {
 	};
 
 	return (
-		<Card className="flex flex-col justify-between rounded-3xl md:flex-row 2xl:w-1/2">
+		<Card className="flex flex-col justify-between rounded-3xl md:flex-row">
 			<div>
 				<CardHeader className="text-left">
 					<CardTitle className="text-2xl font-bold text-neutral-800">

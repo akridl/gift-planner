@@ -5,7 +5,7 @@ export const GiftList = async () => {
 	const gifts = await readGifts();
 
 	return (
-		<div className="space-y-4">
+		<div className="grid gap-4 md:grid-cols-1 2xl:grid-cols-2">
 			{gifts.map(gift => (
 				<GiftCard key={gift.id} gift={gift} />
 			))}

@@ -1,10 +1,11 @@
 import { getGiftById } from '@/modules/gift/server-actions/get';
-import { GiftForm } from '@/modules/gift/components/gift-form';
+import { GiftForm } from '@/modules/gift/components/gift-form/gift-form';
+import { BackButton } from '@/components/back-button';
 
 type GiftEditPageProps = {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 };
 
 const GiftEditPage = async ({ params }: GiftEditPageProps) => {
@@ -17,7 +18,10 @@ const GiftEditPage = async ({ params }: GiftEditPageProps) => {
 
 	return (
 		<div className="container mx-auto p-4">
-			<h1 className="mb-4 text-2xl font-bold">Edit Gift Details</h1>
+			<div className="flex items-center">
+				<BackButton />
+				<h1 className="text-3xl font-bold">Edit Gift Details</h1>
+			</div>
 			<GiftForm gift={gift} />
 		</div>
 	);
