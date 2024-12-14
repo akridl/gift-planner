@@ -42,3 +42,4 @@ export const giftsRelations = relations(gifts, ({ one, many }) => ({
 
 export type Gift = InferSelectModel<typeof gifts>;
 export type CreateGift = InferInsertModel<typeof gifts>;
+export type UpdateGift = { id: number } & Partial<Omit<CreateGift, 'id'>>;
