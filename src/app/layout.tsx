@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import React from 'react';
 
-import { Providers } from '@/components/providers';
-import Header from '@/components/header';
 import { auth } from '@/auth';
+import Header from '@/components/header';
+import { Providers } from '@/components/providers';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
 
