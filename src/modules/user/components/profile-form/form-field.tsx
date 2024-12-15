@@ -42,7 +42,8 @@ export const FormField = ({
 					<div className="flex items-center space-x-2">
 						<button
 							onClick={handleSave}
-							className="my-2 rounded-full border border-neutral-700 bg-neutral-700 p-1 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:p-2"
+							disabled={!!error}
+							className={`my-2 rounded-full p-1 text-sm font-semibold text-white shadow-md transition-colors md:p-2 ${!!error ? 'cursor-not-allowed border border-neutral-400 bg-neutral-400 text-neutral-500' : 'bg-neutral-700 hover:bg-neutral-800'}`}
 						>
 							<CheckIcon className="h-5 w-5" />
 						</button>

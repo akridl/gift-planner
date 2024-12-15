@@ -62,7 +62,7 @@ export const PasswordForm = ({
 							<button
 								type="submit"
 								disabled={!isValid}
-								className={`my-2 rounded-full border border-neutral-700 p-1 text-sm font-semibold text-white shadow-md transition-colors md:p-2 ${!isValid ? 'cursor-not-allowed border-neutral-400 bg-neutral-400 text-neutral-500' : 'bg-neutral-700 hover:bg-neutral-800'}`}
+								className={`my-2 rounded-full p-1 text-sm font-semibold text-white shadow-md transition-colors md:p-2 ${!isValid ? 'cursor-not-allowed border-neutral-400 bg-neutral-400 text-neutral-500' : 'bg-neutral-700 hover:bg-neutral-800'}`}
 							>
 								<CheckIcon className="h-5 w-5" />
 							</button>
