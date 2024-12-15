@@ -1,5 +1,5 @@
 import { GiftCard } from '@/modules/gift/components/gift-card';
-import { readGifts } from '@/modules/gift/server-actions';
+import { readGifts } from '@/modules/gift/server-actions/read';
 
 export const GiftList = async () => {
 	const gifts = await readGifts();

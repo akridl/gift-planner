@@ -8,11 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateGift, type Gift } from '@/db/schema/gifts';
 import { SubmitButton } from '@/components/submit-button';
-import { FormTextField } from '@/components/form-fields';
+import { FormTextField } from '@/components/form-fields/form-text-field';
 import { CancelDialog } from '@/components/cancel-button';
 
 import { updateGift } from '../../server-actions/update';
-import { createGift } from '../../server-actions';
+import { createGift } from '../../server-actions/create';
 
 import { giftFormSchema } from './schema';
 
