@@ -1,10 +1,12 @@
 import { useForm, FormProvider } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PasswordField } from './password-field';
 import { useState } from 'react';
-import { EditButton } from '../edit-button';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
+
+import { EditButton } from '../edit-button';
+
+import { PasswordField } from './password-field';
 
 const passwordSchema = z
 	.object({

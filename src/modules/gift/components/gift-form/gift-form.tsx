@@ -12,7 +12,7 @@ import { FormTextField } from '@/components/form-fields';
 import { CancelDialog } from '@/components/cancel-button';
 
 import { updateGift } from '../../server-actions/update';
-import { createGift } from '../../server-actions';
+import { createGift } from '../../server-actions/create';
 
 import { giftFormSchema } from './schema';
 

@@ -1,12 +1,14 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { profileFormSchema, ProfileFormSchema } from './schema';
-import { UpdateUser, User } from '@/db/schema/users';
-import { updateUser } from '@/modules/user/server-actions/update';
-import { FormField } from './form-field';
 import { useState } from 'react';
 import { z } from 'zod';
+
+import { type UpdateUser, type User } from '@/db/schema/users';
+import { updateUser } from '@/modules/user/server-actions/update';
+
+import { profileFormSchema, type ProfileFormSchema } from './schema';
+import { FormField } from './form-field';
 import { PasswordForm } from './password-form';
 
 type ProfileFormProps = {
@@ -15,7 +17,7 @@ type ProfileFormProps = {
 
 export const ProfileForm = ({ user }: ProfileFormProps) => {
 	const [editingField, setEditingField] = useState<string | null>(null);
-    const [errors, setErrors] = useState<Record<string, string | null>>({});
+	const [errors, setErrors] = useState<Record<string, string | null>>({});
 
 	const mutation = useMutation({
 		mutationFn: async (data: Partial<UpdateUser>) => {
@@ -43,7 +45,10 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 		}
 	};
 
-	const handlePasswordSubmit = async (data: { password: string; confirmPassword: string }) => {
+	const handlePasswordSubmit = async (data: {
+		password: string;
+		confirmPassword: string;
+	}) => {
 		const { password } = data;
 
 		try {
@@ -53,20 +58,20 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				console.log(error.errors[0].message);
-				setErrors((prev) => ({ ...prev, password: error.errors[0]?.message }));
+				setErrors(prev => ({ ...prev, password: error.errors[0]?.message }));
 			}
 		}
 	};
 
-    const handleChange = (field: keyof ProfileFormSchema, value: string) => {
+	const handleChange = (field: keyof ProfileFormSchema, value: string) => {
 		try {
 			profileFormSchema.innerType().shape[field].parse(value);
-			setErrors((prev) => ({ ...prev, [field]: null }));
+			setErrors(prev => ({ ...prev, [field]: null }));
 		} catch (error) {
 			if (error instanceof z.ZodError) {
-				setErrors((prev) => ({
+				setErrors(prev => ({
 					...prev,
-					[field]: error.errors[0]?.message || null,
+					[field]: error.errors[0]?.message || null
 				}));
 			}
 		}
@@ -79,31 +84,31 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 				<FormField
 					label="Name"
 					name="name"
-					initialValue={user.name || ''}
+					initialValue={user.name ?? ''}
 					isEditing={editingField === 'name'}
-                    error={errors.name}
-					onEdit={(isEditing) => setEditingField(isEditing ? 'name' : null)}
-                    onChange={(value) => handleChange('name', value)}
+					error={errors.name}
+					onEdit={isEditing => setEditingField(isEditing ? 'name' : null)}
+					onChange={value => handleChange('name', value)}
 					onSubmit={value => handleSubmit('name', value)}
 				/>
 				<FormField
 					label="Email"
 					name="email"
-					initialValue={user.email || ''}
+					initialValue={user.email ?? ''}
 					isEditing={editingField === 'email'}
-                    error={errors.email}
-					onEdit={(isEditing) => setEditingField(isEditing ? 'email' : null)}
-                    onChange={(value) => handleChange('email', value)}
+					error={errors.email}
+					onEdit={isEditing => setEditingField(isEditing ? 'email' : null)}
+					onChange={value => handleChange('email', value)}
 					onSubmit={value => handleSubmit('email', value)}
 				/>
 				<FormField
 					label="Username"
 					name="username"
-					initialValue={user.username || ''}
+					initialValue={user.username ?? ''}
 					isEditing={editingField === 'username'}
-                    error={errors.username}
-					onEdit={(isEditing) => setEditingField(isEditing ? 'username' : null)}
-                    onChange={(value) => handleChange('username', value)}
+					error={errors.username}
+					onEdit={isEditing => setEditingField(isEditing ? 'username' : null)}
+					onChange={value => handleChange('username', value)}
 					onSubmit={value => handleSubmit('username', value)}
 				/>
 				<PasswordForm onSubmit={handlePasswordSubmit} />
