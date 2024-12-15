@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { type Buying } from '@/db/schema/buyings';
-import { updateNote } from '@/modules/buying/server-actions';
+import { updateNote } from '@/modules/buying/server-actions/patch';
 
 export const useUpdateNoteMutation = () =>
 	useMutation({

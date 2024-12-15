@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { type DetailedGift } from '@/db/schema/buyings';
-import { readBuyings } from '@/modules/buying/server-actions';
+import { readBuyings } from '@/modules/buying/server-actions/read';
 import { BuyingListItem } from '@/modules/buying/components/buying-list-item';
 
 export const BuyingList = async () => {

@@ -10,7 +10,7 @@ import { SubmitButton } from '@/components/submit-button';
 import { Button } from '@/shadcn/ui/button';
 import { useUpdateNoteMutation } from '@/modules/buying/hooks/patch';
 import { editNoteSchema } from '@/modules/buying/components/edit-note-form/schema';
-import { FormTextField } from '@/components/form-fields';
+import { FormTextField } from '@/components/form-fields/form-text-field';
 
 type EditNoteFormProps = {
 	giftId: number;

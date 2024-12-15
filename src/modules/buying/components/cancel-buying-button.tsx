@@ -5,7 +5,7 @@ import { CircleX } from 'lucide-react';
 
 import { Button } from '@/shadcn/ui/button';
 import { type DeleteBuying } from '@/db/schema/buyings';
-import { useDeleteBuyingMutation } from '@/modules/buying/hooks';
+import { useDeleteBuyingMutation } from '@/modules/buying/hooks/delete';
 
 export const CancelBuyingButton = (buyingToCancel: DeleteBuying) => {
 	const mutation = useDeleteBuyingMutation();
