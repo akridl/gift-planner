@@ -12,7 +12,12 @@ const Header = () => (
 		<div className="container mx-auto flex justify-between">
 			<div className="flex items-center">
 				<Link href="/" aria-label="Homepage" className="mr-10">
-					<Image src="/github.png" alt="GitHub logo" width={50} height={50} />
+					<Image
+						src="/logo.png"
+						alt="GiftPlanner logo"
+						width={100}
+						height={50}
+					/>
 				</Link>
 				<nav aria-label="Main navigation" className="hidden lg:block">
 					<NavLinks
