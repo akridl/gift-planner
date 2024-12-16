@@ -36,6 +36,7 @@ export const RegisterForm = () => {
 					return;
 				}
 				router.push(loginResponse.redirectUrl ?? '/');
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (err: any) {
 				setError(err.message || 'Failed to register.');
 			}

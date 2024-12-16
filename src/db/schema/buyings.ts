@@ -1,4 +1,8 @@
-import { relations, type InferSelectModel } from 'drizzle-orm';
+import {
+	relations,
+	type InferSelectModel,
+	type InferInsertModel
+} from 'drizzle-orm';
 import {
 	text,
 	integer,
@@ -36,4 +40,28 @@ export const buyingsRelations = relations(buyings, ({ one }) => ({
 	})
 }));
 
+export type CreateBuying = InferInsertModel<typeof buyings>;
 export type Buying = InferSelectModel<typeof buyings>;
+export type DeleteBuying = Omit<Buying, 'userNote'>;
+
+/**
+ * Gift containing all the details about gift itself, its owner, and buyer's note.
+ */
+export type DetailedGift = {
+	// gift-related info
+	giftId: number;
+	giftName: string;
+	giftDescription: string | null;
+	giftUrl: string | null;
+	giftPrice: number | null;
+	giftRating: number;
+
+	// owner-related info
+	ownerId: number;
+	ownerName: string | null;
+	ownerUserName: string | null;
+
+	// buyer-related info
+	buyerId: number;
+	buyerNote: string | null;
+};

@@ -32,6 +32,7 @@ export const LoginForm = () => {
 			} else if (response.redirectUrl) {
 				router.push(response.redirectUrl);
 			}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setErrorMessage(err.message || 'Failed to log in.');
 		} finally {

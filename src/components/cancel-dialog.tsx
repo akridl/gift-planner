@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import {
 	Dialog,
@@ -16,11 +16,12 @@ type CancelDialogProps = {
 	title: string;
 	description: string;
 	onCancel: () => void;
-	triggerText: string;
+	triggerBody: React.ReactNode;
 	confirmText?: string;
 	cancelText?: string;
 	isLoading?: boolean;
 	triggerClassName?: string;
+	triggerVariant?: React.ComponentProps<typeof Button>['variant'];
 	confirmClassName?: string;
 };
 
@@ -28,11 +29,12 @@ export const CancelDialog = ({
 	title,
 	description,
 	onCancel,
-	triggerText,
+	triggerBody,
 	confirmText = 'Yes, Cancel',
 	cancelText = 'No, Keep Editing',
 	isLoading = false,
 	triggerClassName = '',
+	triggerVariant = 'default',
 	confirmClassName = ''
 }: CancelDialogProps) => {
 	const [open, setOpen] = useState(false);
@@ -45,7 +47,9 @@ export const CancelDialog = ({
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button className={triggerClassName}>{triggerText}</Button>
+				<Button className={triggerClassName} variant={triggerVariant}>
+					{triggerBody}
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
