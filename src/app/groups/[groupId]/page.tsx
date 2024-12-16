@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
-
-import { AppLoader } from '@/components/app-loader';
-import { GroupDetail } from '@/modules/groups/components/group-detail';
-import { GroupSidebar } from '@/modules/groups/components/group-sidebar';
+import {
+	getCurrentUserGiftsWithGroupIds,
+	getUserGroupWithMembersById
+} from '@/modules/groups/server-actions/get';
+import { GroupCard } from '@/modules/groups/components/group-card';
 
 type GiftDetailPageProps = {
 	params: Promise<{
@@ -12,16 +12,18 @@ type GiftDetailPageProps = {
 
 const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 	const { groupId } = await params;
+	const groupWithMembers = await getUserGroupWithMembersById(Number(groupId));
+	const giftsWithGroupIds = await getCurrentUserGiftsWithGroupIds();
+
+	if (!groupWithMembers) {
+		return <span>Group is not found</span>;
+	}
 
 	return (
-		<div className="flex-column flex space-x-8 md:px-16 md:py-8">
-			<Suspense fallback={<AppLoader />}>
-				<GroupSidebar chosenGroupId={Number(groupId)} />
-			</Suspense>
-			<Suspense fallback={<AppLoader />}>
-				<GroupDetail chosenGroupId={Number(groupId)} />
-			</Suspense>
-		</div>
+		<GroupCard
+			groupWithMembers={groupWithMembers}
+			currentUserGiftsWithGroupIds={giftsWithGroupIds}
+		/>
 	);
 };
 export default GroupsPage;
