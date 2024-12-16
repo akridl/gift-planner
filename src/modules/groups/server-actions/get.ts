@@ -1,11 +1,12 @@
 'use server';
 
 import { db } from '@/db';
+import { type GiftWithGroupIds } from '@/db/schema/gifts';
 import { type GroupWithMembers } from '@/db/schema/group';
-import { GetUser as GetCurrentUserId } from '@/server-actions/get-user';
+import { getCurrentUserId } from '@/server-actions/get-user';
 
 export const getUserGroupWithMembersById = async (groupId: number) => {
-	const currentUserId = await GetCurrentUserId();
+	const currentUserId = await getCurrentUserId();
 
 	if (!(await isMemberOfGroup(currentUserId, groupId))) {
 		return undefined;
@@ -45,4 +46,19 @@ const isMemberOfGroup = async (currentUserId: number, groupId: number) => {
 		return false;
 	}
 	return true;
+};
+
+export const getCurrentUserGiftsWithGroupIds = async () => {
+	const currentUserId = await getCurrentUserId();
+
+	const userGiftsWithWishGroups = await db.query.gifts.findMany({
+		where: (gifts, { eq }) => eq(gifts.ownerId, currentUserId),
+		with: { wishGroups: true }
+	});
+
+	return userGiftsWithWishGroups.map(gift => ({
+		id: gift.id,
+		name: gift.name,
+		groupIds: gift.wishGroups.map(wishGroup => wishGroup.groupId)
+	})) satisfies GiftWithGroupIds[];
 };

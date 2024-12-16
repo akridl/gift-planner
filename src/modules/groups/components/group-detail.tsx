@@ -1,4 +1,7 @@
-import { getUserGroupWithMembersById } from '../server-actions/get';
+import {
+	getCurrentUserGiftsWithGroupIds,
+	getUserGroupWithMembersById
+} from '../server-actions/get';
 
 import { GroupCard } from './group-card';
 
@@ -10,9 +13,17 @@ export const GroupDetail = async ({
 	const groupWithMembers = await getUserGroupWithMembersById(
 		Number(chosenGroupId)
 	);
+
 	if (!groupWithMembers) {
 		return <span>Group is not found</span>;
 	}
 
-	return <GroupCard groupWithMembers={groupWithMembers} />;
+	const giftsWithGroupIds = await getCurrentUserGiftsWithGroupIds();
+
+	return (
+		<GroupCard
+			groupWithMembers={groupWithMembers}
+			currentUserGiftsWithGroupIds={giftsWithGroupIds}
+		/>
+	);
 };

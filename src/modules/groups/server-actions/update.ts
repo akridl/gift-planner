@@ -1,27 +1,18 @@
 'use server';
 
-import { and, eq } from 'drizzle-orm';
-
 import { db } from '@/db';
-import { memberships } from '@/db/schema/membership';
-import { GetUser } from '@/server-actions/get-user';
 
-export const deleteMembership = async (groupId: number) => {
-	const currentUserId = await GetUser();
+import { deleteWish } from './delete';
+import { insertWish } from './insert';
 
-	console.log(
-		`Deleting membership for user: ${currentUserId}, group: ${groupId}`
-	);
+export const updateWish = async (giftId: number, groupId: number) => {
+	const wishAlreadyExists = await db.query.wishes.findFirst({
+		where: (wishes, { and, eq }) =>
+			and(eq(wishes.giftId, giftId), eq(wishes.groupId, groupId))
+	});
+	if (wishAlreadyExists) {
+		return await deleteWish(giftId, groupId);
+	}
 
-	const deletedMembership = await db
-		.delete(memberships)
-		.where(
-			and(
-				eq(memberships.userId, currentUserId),
-				eq(memberships.groupId, groupId)
-			)
-		)
-		.returning();
-
-	return deletedMembership ? true : false;
+	return insertWish(giftId, groupId);
 };

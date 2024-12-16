@@ -12,10 +12,10 @@ type SidebarProps = {
 	chosenGroupId?: number;
 };
 
-export const Sidebar = ({ items, chosenGroupId }: SidebarProps) => {
+export const SidebarClient = ({ items, chosenGroupId }: SidebarProps) => {
 	const router = useRouter();
 
-	if (!chosenGroupId) {
+	if (!chosenGroupId && items.length > 0) {
 		chosenGroupId = items[0]?.id;
 		router.push(`/groups/${chosenGroupId}`);
 	}
@@ -28,6 +28,7 @@ export const Sidebar = ({ items, chosenGroupId }: SidebarProps) => {
 		<div className="flex">
 			<aside className="min-w-64 md:block" aria-label="Sidebar">
 				<div className="overflow-y-auto rounded-md bg-gray-300 p-4">
+					{items.length <= 0 && <span>No groups found</span>}
 					<ul className="space-y-2 space-y-8 text-lg font-medium">
 						{items.map(item => (
 							<li key={item.id}>

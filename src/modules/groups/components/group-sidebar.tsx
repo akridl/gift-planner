@@ -1,4 +1,4 @@
-import { Sidebar } from '@/modules/groups/components/sidebar';
+import { SidebarClient } from '@/modules/groups/components/sidebar-client';
 
 import { readUserGroups } from '../server-actions/read';
 
@@ -9,5 +9,5 @@ export const GroupSidebar = async ({
 }) => {
 	const groups = await readUserGroups();
 
-	return <Sidebar items={groups} chosenGroupId={chosenGroupId} />;
+	return <SidebarClient items={groups} chosenGroupId={chosenGroupId} />;
 };

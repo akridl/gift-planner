@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
 
+import { type GiftWithGroupIds } from '@/db/schema/gifts';
 import { type GroupWithMembers } from '@/db/schema/group';
 import { cn } from '@/lib/utils';
 import { Button } from '@/shadcn/ui/button';
@@ -24,12 +25,16 @@ import {
 
 import { useDeleteMembershipMutation } from '../hooks/delete';
 
+import { MyWishesDialog } from './my-wishes/my-wishes-dialog';
+
 type GroupCardProps = React.HTMLAttributes<HTMLDivElement> & {
 	groupWithMembers: GroupWithMembers;
+	currentUserGiftsWithGroupIds: GiftWithGroupIds[];
 };
 
 export const GroupCard = ({
 	groupWithMembers,
+	currentUserGiftsWithGroupIds,
 	className,
 	...props
 }: GroupCardProps) => {
@@ -63,7 +68,10 @@ export const GroupCard = ({
 				</CardHeader>
 				<CardContent className="flex flex-col items-start">
 					<div className="gap-2 md:flex-row md:gap-10">
-						<Button>My wishes</Button>
+						<MyWishesDialog
+							groupId={groupWithMembers.id}
+							giftsWithGroupIds={currentUserGiftsWithGroupIds}
+						/>
 						<Collapsible
 							open={isOpen}
 							onOpenChange={setIsOpen}
