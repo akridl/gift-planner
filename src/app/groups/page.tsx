@@ -1,5 +1,5 @@
 const Page = async () => (
-	<span>Select group on the left or create a new one</span>
+	<span>Select a group from the sidebar or create a new one</span>
 );
 
 export default Page;

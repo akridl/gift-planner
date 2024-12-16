@@ -1,5 +1,5 @@
 import { readUserGroups } from '@/modules/groups/server-actions/read';
-import { GroupSidebar } from '@/modules/groups/components/group-sidebar';
+import { GroupSidebar } from '@/modules/groups/components/sidebar/group-sidebar';
 import { GroupProvider } from '@/store/group-context';
 
 const Layout = async ({
@@ -10,12 +10,14 @@ const Layout = async ({
 	const groups = await readUserGroups();
 
 	return (
-		<div className="flex-column flex space-x-8 md:px-16 md:py-8">
-			<GroupProvider>
-				<GroupSidebar groups={groups} />
-				{children}
-			</GroupProvider>
-		</div>
+		<GroupProvider>
+			<aside className="min-w-64" aria-label="Sidebar">
+				<div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-4">
+					<GroupSidebar groups={groups} />
+					{children}
+				</div>
+			</aside>
+		</GroupProvider>
 	);
 };
 
