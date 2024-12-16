@@ -13,6 +13,7 @@ type FormFieldProps = {
 	onEdit: (isEditing: boolean) => void;
 	onChange: (value: string) => void;
 	onSubmit: (value: string) => void;
+	onCancel: (name: string) => void;
 };
 
 export const FormField = ({
@@ -24,7 +25,8 @@ export const FormField = ({
 	error,
 	onEdit,
 	onChange,
-	onSubmit
+	onSubmit,
+	onCancel
 }: FormFieldProps) => {
 	const [value, setValue] = useState(initialValue);
 
@@ -36,6 +38,7 @@ export const FormField = ({
 	const handleCancel = () => {
 		setValue(initialValue);
 		onEdit(false);
+		onCancel(name);
 	};
 
 	return (

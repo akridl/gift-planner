@@ -3,6 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { type UpdateUser, type User } from '@/db/schema/users';
 import { updateUser } from '@/modules/user/server-actions/update';
@@ -38,9 +39,12 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 		try {
 			profileFormSchema.innerType().shape[field].parse(value);
 			await mutation.mutateAsync({ [field]: value });
+			toast.success(`${field} updated successfully`);
 		} catch (error) {
 			if (error instanceof z.ZodError) {
+				console.log(error.errors[0].message);
 				setErrors(prev => ({ ...prev, [field]: error.errors[0].message }));
+				toast.error(`Failed to update ${field}`);
 			}
 		}
 	};
@@ -54,11 +58,12 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 		try {
 			profileFormSchema.innerType().shape.password.parse(password);
 			await mutation.mutateAsync({ password });
-			console.log('Password updated successfully!');
+			toast.success(`Password updated successfully`);
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				console.log(error.errors[0].message);
 				setErrors(prev => ({ ...prev, password: error.errors[0]?.message }));
+				toast.error(`Failed to update password`);
 			}
 		}
 	};
@@ -77,6 +82,10 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 		}
 	};
 
+	const handleCancel = (field: string) => {
+		setErrors(prev => ({ ...prev, [field]: null }));
+	};
+
 	return (
 		<div className="mt-4 rounded-xl bg-white px-6 py-3 shadow-md">
 			<h2 className="mb-4 text-2xl font-bold">My Profile</h2>
@@ -90,6 +99,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 					onEdit={isEditing => setEditingField(isEditing ? 'name' : null)}
 					onChange={value => handleChange('name', value)}
 					onSubmit={value => handleSubmit('name', value)}
+					onCancel={handleCancel}
 				/>
 				<FormField
 					label="Email"
@@ -100,6 +110,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 					onEdit={isEditing => setEditingField(isEditing ? 'email' : null)}
 					onChange={value => handleChange('email', value)}
 					onSubmit={value => handleSubmit('email', value)}
+					onCancel={handleCancel}
 				/>
 				<FormField
 					label="Username"
@@ -110,6 +121,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
 					onEdit={isEditing => setEditingField(isEditing ? 'username' : null)}
 					onChange={value => handleChange('username', value)}
 					onSubmit={value => handleSubmit('username', value)}
+					onCancel={handleCancel}
 				/>
 				<PasswordForm onSubmit={handlePasswordSubmit} />
 			</div>

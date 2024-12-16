@@ -1,5 +1,5 @@
 import { getGiftById } from '@/modules/gift/server-actions/get';
-import { GiftForm } from '@/modules/gift/components/gift-form';
+import { GiftForm } from '@/modules/gift/components/gift-form/gift-form';
 import { BackButton } from '@/components/back-button';
 
 type GiftEditPageProps = {
