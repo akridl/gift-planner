@@ -8,11 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateGift, type Gift } from '@/db/schema/gifts';
 import { SubmitButton } from '@/components/submit-button';
-import { FormTextField } from '@/components/form-fields';
-import { CancelDialog } from '@/components/cancel-button';
+import { FormTextField } from '@/components/form-fields/form-text-field';
+import { CancelDialog } from '@/components/cancel-dialog';
 
 import { updateGift } from '../../server-actions/update';
-import { createGift } from '../../server-actions';
+import { createGift } from '../../server-actions/create';
 
 import { giftFormSchema } from './schema';
 
@@ -133,7 +133,7 @@ export const GiftForm = ({ gift }: GiftFormProps) => {
 							title="Cancel"
 							description="Are you sure you want to cancel the form and discard the changes?"
 							onCancel={() => window.history.back()}
-							triggerText="Cancel"
+							triggerBody={<p>Cancel</p>}
 							triggerClassName="rounded-md bg-white border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 shadow-md transition-colors hover:bg-neutral-100 hover:text-neutral-900 w-full md:w-auto"
 							confirmClassName="rounded-md bg-neutral-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800"
 						/>
