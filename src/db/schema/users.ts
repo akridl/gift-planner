@@ -27,3 +27,4 @@ export const usersRelations = relations(users, ({ many }) => ({
 
 export type User = InferSelectModel<typeof users>;
 export type CreateUser = InferInsertModel<typeof users>;
+export type UpdateUser = Partial<Omit<CreateUser, 'id'>>;

@@ -19,7 +19,9 @@ export const authConfig = {
 		},
 		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
-			const isOnPublicPage = ['/login', '/register'].includes(nextUrl.pathname);
+			const isOnPublicPage = ['/login', '/register', '/'].includes(
+				nextUrl.pathname
+			);
 
 			if (!isLoggedIn && !isOnPublicPage) {
 				return Response.redirect(new URL('/login', nextUrl));

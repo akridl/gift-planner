@@ -7,7 +7,13 @@ import { GiftList } from '@/modules/gift/components/gift-list';
 export const dynamic = 'force-dynamic';
 
 const Page = async () => (
-	<Suspense fallback={<AppLoader />}>
+	<Suspense
+		fallback={
+			<div className="flex h-full items-center justify-center">
+				<AppLoader />
+			</div>
+		}
+	>
 		<CreateGift />
 		<GiftList />
 	</Suspense>
