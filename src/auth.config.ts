@@ -24,7 +24,7 @@ export const authConfig = {
 			);
 
 			if (!isLoggedIn && !isOnPublicPage) {
-				return Response.redirect(new URL('/login', nextUrl)); // Tu by mozna slo zmenit homepage pri neprihlaseni
+				return Response.redirect(new URL('/login', nextUrl));
 			}
 
 			if (
