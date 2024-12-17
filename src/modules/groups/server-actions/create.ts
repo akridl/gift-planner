@@ -68,7 +68,7 @@ export const createGroup = async (newGroup: CreateGroup) => {
 
 	await db
 		.insert(memberships)
-		.values({ groupId: newestGroup?.id, userId: ownerId });
+		.values({ groupId: newestGroup!.id, userId: ownerId });
 
 	return newestGroup;
 };
