@@ -1,8 +1,9 @@
+import { GroupCard } from '@/modules/groups/components/group-card';
 import {
 	getCurrentUserGiftsWithGroupIds,
-	getUserGroupWithMembersById
-} from '@/modules/groups/server-actions/get';
-import { GroupCard } from '@/modules/groups/components/group-card';
+	getUserGroupWithOtherMembersUserById,
+	readGroupBuyings
+} from '@/modules/groups/server-actions/read';
 
 type GiftDetailPageProps = {
 	params: Promise<{
@@ -12,8 +13,11 @@ type GiftDetailPageProps = {
 
 const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 	const { groupId } = await params;
-	const groupWithMembers = await getUserGroupWithMembersById(Number(groupId));
+	const groupWithMembers = await getUserGroupWithOtherMembersUserById(
+		Number(groupId)
+	);
 	const giftsWithGroupIds = await getCurrentUserGiftsWithGroupIds();
+	const buyingsDetailed = await readGroupBuyings(Number(groupId));
 
 	if (!groupWithMembers) {
 		return <span>Group is not found</span>;
@@ -23,6 +27,7 @@ const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 		<GroupCard
 			groupWithMembers={groupWithMembers}
 			currentUserGiftsWithGroupIds={giftsWithGroupIds}
+			buyingsDetailed={buyingsDetailed}
 		/>
 	);
 };

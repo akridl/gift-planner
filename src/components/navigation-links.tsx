@@ -41,7 +41,7 @@ const NavLinks = ({
 			<Link
 				href="/groups"
 				className={`${linkClassName} ${
-					pathname === '/groups' ? 'bg-gray-200' : 'text-gray-700'
+					pathname.startsWith('/groups') ? 'bg-gray-200' : 'text-gray-700'
 				}`}
 				onClick={() => setIsOpen && setIsOpen(!isOpen)}
 			>

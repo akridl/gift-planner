@@ -1,6 +1,5 @@
 'use client';
 
-import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
@@ -8,7 +7,6 @@ import { toast } from 'sonner';
 import { type GiftWithGroupIds } from '@/db/schema/gifts';
 import { type GroupWithMembers } from '@/db/schema/group';
 import { cn } from '@/lib/utils';
-import { Button } from '@/shadcn/ui/button';
 import {
 	Card,
 	CardContent,
@@ -17,29 +15,28 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/shadcn/ui/card';
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger
-} from '@/shadcn/ui/collapsible';
+import { ScrollArea } from '@/shadcn/ui/scroll-area';
 
 import { useDeleteMembershipMutation } from '../hooks/delete';
+import { type GroupDetailedGift } from '../server-actions/read';
 
+import { MemberGiftsDialog } from './member-gifts/member-gifts-dialog';
 import { MyWishesDialog } from './my-wishes/my-wishes-dialog';
 
 type GroupCardProps = React.HTMLAttributes<HTMLDivElement> & {
 	groupWithMembers: GroupWithMembers;
 	currentUserGiftsWithGroupIds: GiftWithGroupIds[];
+	buyingsDetailed: GroupDetailedGift[];
 };
 
 export const GroupCard = ({
 	groupWithMembers,
 	currentUserGiftsWithGroupIds,
+	buyingsDetailed,
 	className,
 	...props
 }: GroupCardProps) => {
 	const router = useRouter();
-	const [isOpen, setIsOpen] = React.useState(false);
 	const mutation = useDeleteMembershipMutation();
 
 	const handleGroupLeave = () => {
@@ -72,31 +69,22 @@ export const GroupCard = ({
 							groupId={groupWithMembers.id}
 							giftsWithGroupIds={currentUserGiftsWithGroupIds}
 						/>
-						<Collapsible
-							open={isOpen}
-							onOpenChange={setIsOpen}
-							className="w-[350px] space-y-2"
-						>
-							<div className="flex items-center justify-between space-x-4 px-4">
-								<h4 className="text-lg font-semibold">Members</h4>
-								<CollapsibleTrigger asChild>
-									<Button variant="ghost" size="sm">
-										<ChevronsUpDown className="h-4 w-4" />
-										<span className="sr-only">Toggle</span>
-									</Button>
-								</CollapsibleTrigger>
-							</div>
-							<CollapsibleContent className="space-y-2">
+						<span>Members</span>
+						<ScrollArea className="h-[200px] rounded-md border p-4">
+							<ul className="space-y-4">
 								{groupWithMembers.members.map(member => (
-									<div
-										key={member.id}
-										className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-									>
-										{member.name}
-									</div>
+									<li key={member.id}>
+										<MemberGiftsDialog
+											groupDetailedGift={buyingsDetailed.filter(
+												gift => gift.ownerId === member.id
+											)}
+											userId={member.id}
+											userName={member.name}
+										/>
+									</li>
 								))}
-							</CollapsibleContent>
-						</Collapsible>
+							</ul>
+						</ScrollArea>
 					</div>
 				</CardContent>
 			</div>
