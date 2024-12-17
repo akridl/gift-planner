@@ -36,7 +36,7 @@ export const giftsRelations = relations(gifts, ({ one, many }) => ({
 		fields: [gifts.ownerId],
 		references: [users.id]
 	}),
-	userGift: one(buyings),
+	buying: one(buyings),
 	wishGroups: many(wishes)
 }));
 

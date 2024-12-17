@@ -2,10 +2,14 @@
 
 import { db } from '@/db';
 
-import { deleteWish } from './delete';
-import { insertWish } from './insert';
+import { createBuying, createWish } from './create';
+import { deleteBuying, deleteWish } from './delete';
 
-export const updateWish = async (giftId: number, groupId: number) => {
+export type updateWishProps = {
+	giftId: number;
+	groupId: number;
+};
+export const updateWish = async ({ giftId, groupId }: updateWishProps) => {
 	const wishAlreadyExists = await db.query.wishes.findFirst({
 		where: (wishes, { and, eq }) =>
 			and(eq(wishes.giftId, giftId), eq(wishes.groupId, groupId))
@@ -14,5 +18,21 @@ export const updateWish = async (giftId: number, groupId: number) => {
 		return await deleteWish(giftId, groupId);
 	}
 
-	return insertWish(giftId, groupId);
+	return createWish(giftId, groupId);
+};
+
+export type updateBuyingProps = {
+	giftId: number;
+	buyerId: number;
+};
+export const updateBuying = async ({ giftId, buyerId }: updateBuyingProps) => {
+	const buyingAlreadyExists = await db.query.buyings.findFirst({
+		where: (buyings, { and, eq }) =>
+			and(eq(buyings.giftId, giftId), eq(buyings.buyerId, buyerId))
+	});
+	if (buyingAlreadyExists) {
+		return await deleteBuying(giftId, buyerId);
+	}
+
+	return createBuying(giftId, buyerId);
 };
