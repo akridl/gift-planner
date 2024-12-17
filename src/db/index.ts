@@ -1,17 +1,17 @@
+import { createClient } from '@libsql/client';
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
 
 import { gifts, giftsRelations } from '@/db/schema/gifts';
 
-import { users, usersRelations } from './schema/users';
+import { buyings, buyingsRelations } from './schema/buyings';
 import { groups, groupsRelations } from './schema/group';
 import { memberships, membershipsRelations } from './schema/membership';
-import { buyings, buyingsRelations } from './schema/buyings';
+import { users, usersRelations } from './schema/users';
 import { wishes, wishesRelations } from './schema/wishes';
 
 const client = createClient({
-	url: process.env.DATABASE_URL!,
+	url: 'libsql://gift-planner-devel-db-akridl.turso.io',
 	authToken: process.env.AUTH_TOKEN
 });
 

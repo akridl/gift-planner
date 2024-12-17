@@ -1,5 +1,5 @@
-import { readUserGroups } from '@/modules/groups/server-actions/read';
 import { GroupSidebar } from '@/modules/groups/components/sidebar/group-sidebar';
+import { readUserGroups } from '@/modules/groups/server-actions/read';
 import { GroupProvider } from '@/store/group-context';
 
 const Layout = async ({

@@ -20,6 +20,7 @@ import { ScrollArea } from '@/shadcn/ui/scroll-area';
 import { useDeleteMembershipMutation } from '../hooks/delete';
 import { type GroupDetailedGift } from '../server-actions/read';
 
+import { AddMemberDialog } from './add-member/add-member-dialog';
 import { MemberGiftsDialog } from './member-gifts/member-gifts-dialog';
 import { MyWishesDialog } from './my-wishes/my-wishes-dialog';
 
@@ -27,12 +28,16 @@ type GroupCardProps = React.HTMLAttributes<HTMLDivElement> & {
 	groupWithMembers: GroupWithMembers;
 	currentUserGiftsWithGroupIds: GiftWithGroupIds[];
 	buyingsDetailed: GroupDetailedGift[];
+	currentUserId: number;
+	groupId: number;
 };
 
 export const GroupCard = ({
 	groupWithMembers,
 	currentUserGiftsWithGroupIds,
 	buyingsDetailed,
+	currentUserId,
+	groupId,
 	className,
 	...props
 }: GroupCardProps) => {
@@ -65,11 +70,10 @@ export const GroupCard = ({
 				</CardHeader>
 				<CardContent className="flex flex-col items-start">
 					<div className="gap-2 md:flex-row md:gap-10">
-						<MyWishesDialog
-							groupId={groupWithMembers.id}
-							giftsWithGroupIds={currentUserGiftsWithGroupIds}
-						/>
-						<span>Members</span>
+						<div className="inset-x-0 flex items-center px-2 py-1">
+							<span className="grow text-lg">Members</span>
+							<AddMemberDialog groupId={groupId} />
+						</div>
 						<ScrollArea className="h-[200px] rounded-md border p-4">
 							<ul className="space-y-4">
 								{groupWithMembers.members.map(member => (
@@ -78,7 +82,7 @@ export const GroupCard = ({
 											groupDetailedGift={buyingsDetailed.filter(
 												gift => gift.ownerId === member.id
 											)}
-											userId={member.id}
+											currentUserId={currentUserId}
 											userName={member.name}
 										/>
 									</li>
@@ -89,9 +93,13 @@ export const GroupCard = ({
 				</CardContent>
 			</div>
 			<CardFooter className="flex justify-center p-0 md:justify-end">
+				<MyWishesDialog
+					groupId={groupWithMembers.id}
+					giftsWithGroupIds={currentUserGiftsWithGroupIds}
+				/>
 				<button
 					onClick={handleGroupLeave}
-					className="m-6 w-full rounded-full bg-red-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto"
+					className="m-6 w-full rounded-full bg-red-700 px-6 py-2 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto"
 				>
 					Leave a group
 				</button>

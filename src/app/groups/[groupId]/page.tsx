@@ -4,6 +4,7 @@ import {
 	getUserGroupWithOtherMembersUserById,
 	readGroupBuyings
 } from '@/modules/groups/server-actions/read';
+import { getCurrentUserId } from '@/server-actions/get-user';
 
 type GiftDetailPageProps = {
 	params: Promise<{
@@ -18,6 +19,7 @@ const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 	);
 	const giftsWithGroupIds = await getCurrentUserGiftsWithGroupIds();
 	const buyingsDetailed = await readGroupBuyings(Number(groupId));
+	const currentUserId = await getCurrentUserId();
 
 	if (!groupWithMembers) {
 		return <span>Group is not found</span>;
@@ -28,6 +30,8 @@ const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 			groupWithMembers={groupWithMembers}
 			currentUserGiftsWithGroupIds={giftsWithGroupIds}
 			buyingsDetailed={buyingsDetailed}
+			currentUserId={currentUserId}
+			groupId={Number(groupId)}
 		/>
 	);
 };
