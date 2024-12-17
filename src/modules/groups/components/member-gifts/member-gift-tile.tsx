@@ -1,3 +1,5 @@
+'use client';
+
 import { Circle, CircleCheck, CircleEllipsis } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -8,14 +10,14 @@ import { Button } from '@/shadcn/ui/button';
 import { useUpdateBuyingMutation } from '../../hooks/update';
 
 type MemberWishTileProps = {
-	userId: number;
+	currentUserId: number;
 	giftId: number;
 	buyerId?: number;
 	giftName: string;
 };
 
 export const MemberWishTile = ({
-	userId,
+	currentUserId,
 	giftId,
 	buyerId,
 	giftName
@@ -27,11 +29,11 @@ export const MemberWishTile = ({
 	const handleOnCheckClick = () => {
 		setIsLoading(true);
 		mutation.mutate(
-			{ giftId, buyerId: userId },
+			{ giftId, buyerId: currentUserId },
 			{
 				onSuccess: () => {
 					router.refresh();
-					toast.success(`Change happened`);
+					toast.success(`Gift status changed`);
 					setIsLoading(false);
 				},
 				onError: error => {
@@ -44,29 +46,28 @@ export const MemberWishTile = ({
 	return (
 		<div className="inset-x flex flex-row items-center rounded-xl bg-gray-300 p-2">
 			<span
-				className={`grow ${buyerId && buyerId !== userId ? 'line-through' : ''}`}
+				className={`grow ${buyerId && buyerId !== currentUserId ? 'line-through' : ''}`}
 			>
 				{giftName}
 			</span>
-			{!buyerId ||
-				(buyerId === userId ? (
-					<Button
-						onClick={handleOnCheckClick}
-						className="rounded-full bg-neutral-200 text-sm font-semibold text-black shadow-none transition-colors hover:bg-neutral-100 md:w-auto"
-					>
-						<div className="flex items-center gap-x-3">
-							{isLoading ? (
-								<CircleEllipsis />
-							) : buyerId === userId ? (
-								<CircleCheck />
-							) : (
-								<Circle />
-							)}
-						</div>
-					</Button>
-				) : (
-					<span className="text-sm text-gray-500">Already taken</span>
-				))}
+			{buyerId && buyerId !== currentUserId ? (
+				<span className="text-sm text-gray-500">Already taken</span>
+			) : (
+				<Button
+					onClick={handleOnCheckClick}
+					className="rounded-full bg-neutral-200 text-sm font-semibold text-black shadow-none transition-colors hover:bg-neutral-100 md:w-auto"
+				>
+					<div className="flex items-center gap-x-3">
+						{isLoading ? (
+							<CircleEllipsis />
+						) : buyerId === currentUserId ? (
+							<CircleCheck />
+						) : (
+							<Circle />
+						)}
+					</div>
+				</Button>
+			)}
 		</div>
 	);
 };

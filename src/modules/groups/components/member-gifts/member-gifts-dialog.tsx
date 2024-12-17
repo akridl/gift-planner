@@ -17,13 +17,13 @@ import { type GroupDetailedGift } from '../../server-actions/read';
 import { MemberWishTile } from './member-gift-tile';
 
 type MemberGiftsDialogProps = {
-	userId: number;
+	currentUserId: number;
 	userName: string | null;
 	groupDetailedGift: GroupDetailedGift[];
 };
 
 export const MemberGiftsDialog = ({
-	userId,
+	currentUserId,
 	userName,
 	groupDetailedGift
 }: MemberGiftsDialogProps) => (
@@ -44,7 +44,7 @@ export const MemberGiftsDialog = ({
 							<li key={record.giftId}>
 								<MemberWishTile
 									giftId={record.giftId}
-									userId={userId}
+									currentUserId={currentUserId}
 									buyerId={record.buyerId}
 									giftName={record.giftName}
 								/>

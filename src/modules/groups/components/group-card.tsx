@@ -28,12 +28,14 @@ type GroupCardProps = React.HTMLAttributes<HTMLDivElement> & {
 	groupWithMembers: GroupWithMembers;
 	currentUserGiftsWithGroupIds: GiftWithGroupIds[];
 	buyingsDetailed: GroupDetailedGift[];
+	currentUserId: number;
 };
 
 export const GroupCard = ({
 	groupWithMembers,
 	currentUserGiftsWithGroupIds,
 	buyingsDetailed,
+	currentUserId,
 	className,
 	...props
 }: GroupCardProps) => {
@@ -82,7 +84,7 @@ export const GroupCard = ({
 											groupDetailedGift={buyingsDetailed.filter(
 												gift => gift.ownerId === member.id
 											)}
-											userId={member.id}
+											currentUserId={currentUserId}
 											userName={member.name}
 										/>
 									</li>
