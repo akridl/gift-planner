@@ -3,7 +3,7 @@
 import { auth } from '@/auth';
 import { db } from '@/db';
 import { buyings } from '@/db/schema/buyings';
-import { type CreateGroup } from '@/db/schema/group';
+import { groups, type CreateGroup } from '@/db/schema/group';
 import { memberships } from '@/db/schema/membership';
 import { wishes } from '@/db/schema/wishes';
 
@@ -60,9 +60,15 @@ export const createGroup = async (newGroup: CreateGroup) => {
 	};
 	console.log('Inserting new group: ', groupWithOwner);
 
+	await db.insert(groups).values(groupWithOwner);
+
 	const newestGroup = await db.query.groups.findFirst({
 		orderBy: (groups, { desc }) => [desc(groups.id)]
 	});
+
+	await db
+		.insert(memberships)
+		.values({ groupId: newestGroup?.id, userId: ownerId });
 
 	return newestGroup;
 };
