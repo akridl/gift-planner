@@ -3,7 +3,7 @@
 import { auth } from '@/auth';
 import { db } from '@/db';
 import { buyings } from '@/db/schema/buyings';
-import { type CreateGroup, groups } from '@/db/schema/group';
+import { type CreateGroup } from '@/db/schema/group';
 import { memberships } from '@/db/schema/membership';
 import { wishes } from '@/db/schema/wishes';
 
@@ -60,15 +60,9 @@ export const createGroup = async (newGroup: CreateGroup) => {
 	};
 	console.log('Inserting new group: ', groupWithOwner);
 
-	const insertedGroup = await db
-		.insert(groups)
-		.values(groupWithOwner)
-		.returning();
-	console.log('inserted group: ', insertedGroup); // here, its printed with new ID
-	console.log('its ID: ', insertedGroup.id); // cannot get that ID here
+	const newestGroup = await db.query.groups.findFirst({
+		orderBy: (groups, { desc }) => [desc(groups.id)]
+	});
 
-	await db
-		.insert(memberships)
-		.values({ groupId: insertedGroup.id, userId: ownerId }); // FIX THIS
-	return insertedGroup;
+	return newestGroup;
 };
