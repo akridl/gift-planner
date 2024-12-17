@@ -29,7 +29,7 @@ export const MobileGroupSidebar = ({
 				<Button
 					variant="ghost"
 					size="sm"
-					className="w-full space-x-8 rounded-full bg-red-300 py-6 hover:bg-red-400"
+					className="w-full space-x-8 rounded-md bg-white py-6"
 				>
 					<p className="text-xl font-semibold">List your groups</p>
 					<ChevronsUpDown className="h-16 w-16 stroke-2" />
@@ -38,7 +38,7 @@ export const MobileGroupSidebar = ({
 			<CollapsibleContent>
 				<ScrollArea
 					type="always"
-					className="h-24 gap-y-2 overflow-y-auto bg-red-200 pr-3"
+					className="h-24 gap-y-2 overflow-y-auto bg-white pr-3"
 				>
 					{groups.map(item => (
 						<MobileGroupSidebarItem

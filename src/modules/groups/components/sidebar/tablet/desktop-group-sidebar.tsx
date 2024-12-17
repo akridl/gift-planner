@@ -18,11 +18,11 @@ export const DesktopGroupSidebar = ({
 }: TabletGroupSidebarProps) => (
 	<div
 		className={cn(
-			'block overflow-y-auto rounded-l-sm rounded-r-xl bg-gray-300 py-4',
+			'block overflow-y-auto rounded-r-md bg-white py-4',
 			className
 		)}
 	>
-		<p className="ml-2 text-xl font-semibold">Your groups</p>
+		<p className="ml-2 text-lg font-semibold">Your groups</p>
 		<ul className="p-2 text-lg font-medium">
 			{groups.map(item => (
 				<DesktopGroupSidebarItem

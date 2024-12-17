@@ -15,7 +15,7 @@ export const MobileGroupSidebarItem = ({
 
 	return (
 		<Button
-			className={`m-2 flex w-full justify-start rounded-lg border-0 border-red-600 bg-slate-50 py-2 pl-8 text-black hover:border-2 hover:bg-red-300 ${item.id === group?.id ? 'bg-red-500 font-semibold' : ''}`}
+			className={`hover:bg-neutral bg-neutral m-2 flex w-full justify-start rounded-lg border-0 py-2 pl-8 text-black ${item.id === group?.id ? 'bg-gray-200' : ''}`}
 			onClick={() => {
 				handleOnGroupClick(item);
 			}}

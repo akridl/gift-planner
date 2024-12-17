@@ -14,7 +14,8 @@ export const DesktopGroupSidebarItem = ({
 
 	return (
 		<button
-			className={`flex w-full rounded-r-md p-1 hover:bg-slate-500 ${item.id === group?.id ? 'bg-slate-400 font-semibold' : ''}`}
+			// pathname === '/gifts' ? 'bg-gray-200' : 'text-gray-700'
+			className={`flex w-full rounded-r-md p-1 text-gray-700 ${item.id === group?.id ? 'bg-gray-200' : ''}`}
 			onClick={() => {
 				handleOnGroupClick(item);
 			}}
