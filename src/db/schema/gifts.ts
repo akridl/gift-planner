@@ -1,13 +1,13 @@
-import { check, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import {
 	relations,
 	sql,
 	type InferInsertModel,
 	type InferSelectModel
 } from 'drizzle-orm';
+import { check, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
-import { users } from './users';
 import { buyings } from './buyings';
+import { users } from './users';
 import { wishes } from './wishes';
 
 export const gifts = sqliteTable(
@@ -43,3 +43,4 @@ export const giftsRelations = relations(gifts, ({ one, many }) => ({
 export type Gift = InferSelectModel<typeof gifts>;
 export type CreateGift = InferInsertModel<typeof gifts>;
 export type UpdateGift = { id: number } & Partial<Omit<CreateGift, 'id'>>;
+export type GiftWithGroupIds = { id: number; name: string; groupIds: number[] };
