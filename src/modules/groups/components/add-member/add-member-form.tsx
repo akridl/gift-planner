@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { type FormEvent, useRef } from 'react';
 import { toast } from 'sonner';
 
@@ -6,20 +7,21 @@ import { useAddGroupMemberMutation } from '../../hooks/create';
 
 export const AddMemberForm = ({ groupId }: { groupId: number }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
+	const route = useRouter();
 	const mutation = useAddGroupMemberMutation();
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
-		const value = inputRef.current?.valueAsNumber;
-		console.log('ahoj value:', value, inputRef);
+		const value = inputRef.current?.value;
 
 		if (value) {
 			mutation.mutate(
-				{ userId: value, groupId },
+				{ userId: Number(value), groupId },
 				{
 					onSuccess: () => {
 						toast.success('User was successfully added to the group');
+						route.refresh();
 					},
 					onError: error => {
 						toast.error(error.message);

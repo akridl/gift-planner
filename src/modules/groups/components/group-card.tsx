@@ -68,13 +68,13 @@ export const GroupCard = ({
 						{groupWithMembers.description}
 					</CardDescription>
 				</CardHeader>
-				<CardContent className="flex flex-col items-start">
+				<CardContent className="flex grow flex-col">
 					<div className="gap-2 md:flex-row md:gap-10">
 						<div className="inset-x-0 flex items-center px-2 py-1">
 							<span className="grow text-lg">Members</span>
 							<AddMemberDialog groupId={groupId} />
 						</div>
-						<ScrollArea className="h-[200px] rounded-md border p-4">
+						<ScrollArea className="h-[200px] w-full rounded-md border p-4">
 							<ul className="space-y-4">
 								{groupWithMembers.members.map(member => (
 									<li key={member.id}>
