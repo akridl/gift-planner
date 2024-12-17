@@ -58,7 +58,7 @@ export const WishTile = ({
 			</Button>
 			<Button
 				onClick={handleOnCheckClick}
-				className="rounded-full bg-neutral-200 text-sm font-semibold text-black shadow-none transition-colors hover:bg-neutral-100 md:w-auto"
+				className="rounded-full bg-neutral-200 text-sm font-semibold text-black transition-colors hover:bg-neutral-100 md:w-auto"
 			>
 				<div className="flex items-center gap-x-3">
 					{isLoading ? (

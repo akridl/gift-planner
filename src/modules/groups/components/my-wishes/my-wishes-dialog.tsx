@@ -26,10 +26,8 @@ export const MyWishesDialog = ({
 }: MyWishesDialogProps) => (
 	<Dialog>
 		<DialogTrigger asChild>
-			<Button className="w-full rounded-full bg-neutral-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto">
-				<div className="flex items-center gap-x-3">
-					<p>My wishes</p>
-				</div>
+			<Button className="ml-6 w-full rounded-full bg-neutral-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto">
+				My wishes
 			</Button>
 		</DialogTrigger>
 		<DialogContent>
