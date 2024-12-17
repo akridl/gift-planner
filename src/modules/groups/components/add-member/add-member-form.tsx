@@ -1,48 +1,40 @@
 'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eraser } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 import { FormTextField } from '@/components/form-fields/form-text-field';
 import { SubmitButton } from '@/components/submit-button';
-import { type Buying } from '@/db/schema/buyings';
-import { editNoteSchema } from '@/modules/buying/components/edit-note-form/schema';
-import { useUpdateNoteMutation } from '@/modules/buying/hooks/patch';
-import { Button } from '@/shadcn/ui/button';
-import { z } from 'zod';
+
+import {
+	type AddGroupMemberMutationProps,
+	useAddGroupMemberMutation
+} from '../../hooks/create';
 
 const addMemberSchema = z.object({
-	userId: z.number()
+	userId: z.string(),
+	groupId: z.number()
 });
 
 type addMemberFormProps = {
-	giftId: number;
-	buyerId: number;
-	userNote: string;
+	groupId: number;
 };
 
-export const AddMemberForm = ({
-	giftId,
-	buyerId,
-	userNote
-}: addMemberFormProps) => {
-	const methods = useForm<Buying>({
-		resolver: zodResolver(editNoteSchema),
+export const AddMemberForm = ({ groupId }: addMemberFormProps) => {
+	const methods = useForm<AddGroupMemberMutationProps>({
+		resolver: zodResolver(addMemberSchema),
 		defaultValues: {
-			giftId,
-			buyerId,
-			userNote
+			groupId
 		}
 	});
 	const { handleSubmit } = methods;
 
-	const mutation = useUpdateNoteMutation();
-	const onSubmit = (data: Buying) => {
+	const mutation = useAddGroupMemberMutation();
+	const onSubmit = (data: AddGroupMemberMutationProps) => {
 		mutation.mutate(data, {
 			onSuccess: () => {
-				toast.success('Your note was successfully updated');
+				toast.success('User was successfully added to the group');
 			},
 			onError: error => {
 				toast.error(error.message);
@@ -54,12 +46,12 @@ export const AddMemberForm = ({
 		<FormProvider {...methods}>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<FormTextField
-					name="userNote"
-					label=""
-					as="textarea"
+					name="userId"
+					label="User ID"
 					className="mb-3"
+					type="number"
 					labelClassName="text-sm font-medium text-neutral-600"
-					rows={4}
+					rows={1}
 				/>
 				<div className="flex items-center justify-end gap-2">
 					<SubmitButton
@@ -67,16 +59,8 @@ export const AddMemberForm = ({
 						className="my-4 w-full rounded-md bg-neutral-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-neutral-800 md:w-auto"
 						disabled={mutation.status === 'pending'}
 					>
-						{mutation.status === 'pending' ? 'Saving...' : 'Save'}
+						{mutation.status === 'pending' ? 'Saving...' : 'Add user'}
 					</SubmitButton>
-					<Button type="reset" variant="outline">
-						<div className="flex items-center gap-x-3">
-							<span>
-								<Eraser />
-							</span>
-							<p>Clear note</p>
-						</div>
-					</Button>
 				</div>
 			</form>
 		</FormProvider>

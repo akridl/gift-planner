@@ -35,7 +35,7 @@ export const WishTile = ({
 			{
 				onSuccess: () => {
 					router.refresh();
-					toast.success(`Change happened`);
+					toast.success(`Wish status changed`);
 					setIsLoading(false);
 				},
 				onError: error => {

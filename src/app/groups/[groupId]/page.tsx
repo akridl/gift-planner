@@ -31,6 +31,7 @@ const GroupsPage = async ({ params }: GiftDetailPageProps) => {
 			currentUserGiftsWithGroupIds={giftsWithGroupIds}
 			buyingsDetailed={buyingsDetailed}
 			currentUserId={currentUserId}
+			groupId={Number(groupId)}
 		/>
 	);
 };

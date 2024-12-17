@@ -20,7 +20,7 @@ import { ScrollArea } from '@/shadcn/ui/scroll-area';
 import { useDeleteMembershipMutation } from '../hooks/delete';
 import { type GroupDetailedGift } from '../server-actions/read';
 
-import { CirclePlus } from 'lucide-react';
+import { AddMemberDialog } from './add-member/add-member-dialog';
 import { MemberGiftsDialog } from './member-gifts/member-gifts-dialog';
 import { MyWishesDialog } from './my-wishes/my-wishes-dialog';
 
@@ -29,6 +29,7 @@ type GroupCardProps = React.HTMLAttributes<HTMLDivElement> & {
 	currentUserGiftsWithGroupIds: GiftWithGroupIds[];
 	buyingsDetailed: GroupDetailedGift[];
 	currentUserId: number;
+	groupId: number;
 };
 
 export const GroupCard = ({
@@ -36,6 +37,7 @@ export const GroupCard = ({
 	currentUserGiftsWithGroupIds,
 	buyingsDetailed,
 	currentUserId,
+	groupId,
 	className,
 	...props
 }: GroupCardProps) => {
@@ -55,8 +57,6 @@ export const GroupCard = ({
 		});
 	};
 
-	const handleMemberAdd = () => {};
-
 	return (
 		<Card className={cn('grow rounded-3xl md:flex-row', className)} {...props}>
 			<div>
@@ -72,9 +72,7 @@ export const GroupCard = ({
 					<div className="gap-2 md:flex-row md:gap-10">
 						<div className="inset-x-0 flex items-center px-2 py-1">
 							<span className="grow text-lg">Members</span>
-							<button onClick={handleMemberAdd} className="text-black">
-								<CirclePlus size={24} />
-							</button>
+							<AddMemberDialog groupId={groupId} />
 						</div>
 						<ScrollArea className="h-[200px] rounded-md border p-4">
 							<ul className="space-y-4">
